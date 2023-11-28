@@ -8,8 +8,8 @@ export class Game {
     }
     
     init(args){
-        const field = args[0]
-        this.show_all = args[1]
+        const field = args[1]
+        this.show_all = args[0]
         const keys = {
             "p":1,
             ".":1,

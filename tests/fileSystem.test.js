@@ -17,13 +17,13 @@ describe("fileSystem class", () => {
     
     describe("parse method", () => {
         it("should parse file content into a 2D array", () => {
-          const filePath = ["./tests/example.txt"]; // Assuming "example.txt" exists with appropriate content
-          const expectedData = [
+          const args = ["./tests/example.txt", "show-all"]; // Assuming "example.txt" exists with appropriate content
+          const expectedData = [true, [
             ["#", "#", "#"],
             [".", ".", "."],
             ["p", ".", "p"],
-          ];
-          expect(fs.parse(filePath)).toEqual(expectedData);
+          ]];
+          expect(fs.parse(args)).toEqual(expectedData);
         });
       });
 

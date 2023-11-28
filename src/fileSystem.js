@@ -11,7 +11,7 @@ export class fileSystem{
         let data = fs.readFileSync(filePath, "utf8");
         data = data.split("\n").map((line) => line.replace(/\r/g, ''));
         data = data.map((line) => line.split(""))
-        return [data, show];
+        return [show, data];
     }
 
     writeOutput(data){
