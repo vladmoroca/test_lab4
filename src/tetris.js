@@ -2,9 +2,14 @@ export class Game {
     constructor(){
         this.gameEnd = false
         this.field = []
+        this.generation = 0
+        this.show_all = false
+        this.step_history = []
     }
     
-    init(field){
+    init(args){
+        const field = args[0]
+        this.show_all = args[1]
         const keys = {
             "p":1,
             ".":1,
@@ -26,10 +31,13 @@ export class Game {
         while(!this.gameEnd){
           this.nextGeneration()
         }
+        this.step_history.push(...(this.field.map(row => [...row])))
     }
 
     getField() {
-        return this.field
+        if(this.show_all){
+            return this.step_history
+        } else return this.field
     }
 
     /*. 
@@ -45,9 +53,12 @@ export class Game {
     }
 
     nextGeneration(){
-      const nextMap = [...this.field];
-      for (let i = this.field.length - 1; i > 0; i--) {
-        for (let j = 0; j < this.field[1].length; j++) {
+      this.generation++
+      const nextMap = this.field.map(row => [...row]);;
+      this.step_history.push(...(nextMap.map(row => [...row])));
+      this.step_history.push(["\nGeneration: ", this.generation, "\n"]);
+      for (let i = nextMap.length - 1; i > 0; i--) {
+        for (let j = 0; j < nextMap[1].length; j++) {
           if(this.field[i][j]  == "p"){
             if(this.field[i + 1]){
                 this.collisionCheck(this.field, i,j)
@@ -57,6 +68,6 @@ export class Game {
           }
         }
       }
-      this.field = [...nextMap]
+      this.field = nextMap.concat([])
     }
 }

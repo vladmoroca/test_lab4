@@ -5,11 +5,13 @@ export class fileSystem{
         return process.argv.slice(2);
     }
 
-    parse(filePath){
-        let data = fs.readFileSync(...filePath, "utf8");
+    parse(args){
+        const filePath = args[0]
+        const show = (args[1] == "show-all")
+        let data = fs.readFileSync(filePath, "utf8");
         data = data.split("\n").map((line) => line.replace(/\r/g, ''));
         data = data.map((line) => line.split(""))
-        return data;
+        return [data, show];
     }
 
     writeOutput(data){
